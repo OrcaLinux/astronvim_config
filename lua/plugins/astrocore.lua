@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -32,6 +30,9 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = false, -- sets vim.opt.wrap
+        shiftwidth = 4, -- sets the number of spaces for each indentation level when using the > and < commands
+        tabstop = 4, -- sets the number of spaces that a <Tab> in the file counts for
+        expandtab = false, -- sets vim.opt.expandtab to false
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -63,9 +64,11 @@ return {
         -- this is useful for naming menus
         ["<Leader>b"] = { desc = "Buffers" },
         -- quick save
-        ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
-        -- quick compile c/c++ files 
-        ["<C-b>"] = { ":!<cr>", desc = "compile current c/c++ file with gcc" },
+        ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
+        -- quick compile c/c++ files
+        ["<C-b>"] = { ":!gcc -g % -o exe && ./exe<cr>", desc = "compile current c/c++ file with gcc" },
+        -- set the identation of the c/c++ files
+        ["<Leader>bf"] = { ":!indent -linux % && rm *.c~<cr>", desc = "buffer format" },
       },
       t = {
         -- setting a mapping to false will disable it
