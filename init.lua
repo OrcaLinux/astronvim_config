@@ -16,4 +16,14 @@ if not pcall(require, "lazy") then
 end
 
 require "lazy_setup"
+
+-- Clipboard and key mappings setup
+vim.opt.clipboard = "unnamedplus"
+
+-- Key mappings for clipboard operations
+vim.api.nvim_set_keymap("n", "<leader>y", '"+y', { noremap = true, silent = true }) -- Yank to system clipboard in normal mode
+vim.api.nvim_set_keymap("v", "<leader>y", '"+y', { noremap = true, silent = true }) -- Yank to system clipboard in visual mode
+vim.api.nvim_set_keymap("n", "<leader>p", '"+p', { noremap = true, silent = true }) -- Paste from system clipboard in normal mode
+vim.api.nvim_set_keymap("v", "<leader>p", '"+p', { noremap = true, silent = true }) -- Paste from system clipboard in visual mode
+
 require "polish"
