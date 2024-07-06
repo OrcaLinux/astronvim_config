@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -60,6 +58,23 @@ return {
           desc = "Close buffer from tabline",
         },
 
+        -- Build and run C or C++ file based on the file type
+        ["<C-b>"] = {
+          function()
+            local filetype = vim.bo.filetype
+            local filename = vim.fn.expand("%")
+            local outputname = filename:gsub("%.%w+$", "")
+            if filetype == "c" then
+              vim.cmd("!gcc " .. filename .. " -o " .. outputname .. " && ./" .. outputname)
+            elseif filetype == "cpp" then
+              vim.cmd("!g++ " .. filename .. " -std=c++17 -o " .. outputname .. " && ./" .. outputname)
+            else
+              print("Not a C or C++ file")
+            end
+          end,
+          desc = "Build and run C or C++ file",
+        },
+
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         -- ["<Leader>b"] = { desc = "Buffers" },
@@ -70,3 +85,4 @@ return {
     },
   },
 }
+
