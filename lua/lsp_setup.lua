@@ -4,6 +4,17 @@ local cmp_nvim_lsp = require "cmp_nvim_lsp"
 -- Default on_attach function for all LSPs
 local on_attach = function(client, bufnr)
   -- Add your on_attach settings here if needed
+
+  -- Enable autoformat on save
+  if client.server_capabilities.documentFormattingProvider then
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.buf.format({ bufnr = bufnr })
+      end,
+    })
+  end
 end
 
 -- Create capabilities object with cmp_nvim_lsp
@@ -55,3 +66,4 @@ lspconfig.lua_ls.setup {
 }
 
 -- Add similar configurations for other LSP servers as needed
+
