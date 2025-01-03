@@ -10,9 +10,7 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
       buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({ bufnr = bufnr })
-      end,
+      callback = function() vim.lsp.buf.format { bufnr = bufnr } end,
     })
   end
 end
@@ -36,8 +34,8 @@ lspconfig.pyright.setup {
   capabilities = capabilities,
 }
 
--- Configure tsserver
-lspconfig.tsserver.setup {
+-- Configure ts_ls
+lspconfig.ts_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
@@ -66,4 +64,3 @@ lspconfig.lua_ls.setup {
 }
 
 -- Add similar configurations for other LSP servers as needed
-
